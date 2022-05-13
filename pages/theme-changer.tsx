@@ -8,11 +8,12 @@ import {
 	Radio,
 	RadioGroup,
 } from '@mui/material';
+import { GetServerSideProps } from 'next';
 import Cookies from 'js-cookie';
 
 import { Layout } from '../components/layouts';
 
-const ThemeChangerPage = () => {
+const ThemeChangerPage = ({ theme }: ThemeChangerPageProps) => {
 	const [currentTheme, setCurrentTheme] = useState('light');
 
 	const onThemeChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +39,20 @@ const ThemeChangerPage = () => {
 			</Card>
 		</Layout>
 	);
+};
+
+interface ThemeChangerPageProps {
+	theme: string;
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+	const { theme = 'light' } = req.cookies;
+
+	return {
+		props: {
+			theme: theme,
+		},
+	};
 };
 
 export default ThemeChangerPage;
