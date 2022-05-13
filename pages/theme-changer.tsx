@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import {
 	Card,
 	CardContent,
@@ -8,6 +8,7 @@ import {
 	Radio,
 	RadioGroup,
 } from '@mui/material';
+import Cookies from 'js-cookie';
 
 import { Layout } from '../components/layouts';
 
@@ -15,7 +16,10 @@ const ThemeChangerPage = () => {
 	const [currentTheme, setCurrentTheme] = useState('light');
 
 	const onThemeChange = (event: ChangeEvent<HTMLInputElement>) => {
-		setCurrentTheme(event.target.value);
+		const selectedTheme = event.target.value;
+		setCurrentTheme(selectedTheme);
+
+		Cookies.set('theme', selectedTheme);
 	};
 
 	return (
